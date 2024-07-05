@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button {
+    width: 40px; /* adjust the width value as needed */
+  }
+  
+  #keys > div {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  #keys > div > button {
+    flex: 1 1 0;
+    margin: 10px;
+  }

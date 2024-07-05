@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailwind example</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script>
+        // set theme
+        const toggle = () => {
+            document.documentElement.classList.toggle("dark")
+            document.documentElement.classList.toggle("light")            
+        }
+
+        // view
+        const setView = (v) => {
+            document.querySelector('h1').innerText = v
+            var randomColor = Math.floor(Math.random()*16777215).toString(16)
+            document.querySelector('h1').style.borderBottom = `10px solid #${randomColor}`
+            toggleMenu(true)
+        }
+
+        // menu
+        const toggleMenu = (hide) => {
+            if (!hide) {
+                document.querySelector('#ddMenu').classList.toggle('hidden')
+                document.querySelectorAll('svg').forEach((el) => {
+                    el.classList.toggle('hidden')
+                })
+            }
+            else {
+                document.querySelector('#ddMenu').classList.add('hidden')
+                document.querySelectorAll('svg')[0].classList.remove('hidden')
+                document.querySelectorAll('svg')[1].classList.add('hidden')                    
+            }
+        }
+
+    </script>
+</head>
+
+<body class="dark:bg-gray-800 dark:text-black p-4">
+    <div class="max-w-[1000px] w-full mx-auto relative">
+        <div class="bg-blue-700 dark:bg-blue-500 text-white p-4 flex justify-between">
+            <button class="block sm:hidden" onclick="toggleMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 448 512">
+                    <path fill="#ffffff"
+                        d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
+                </svg>
+                <svg class="hidden" xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 384 512">
+                    <path fill="#ffffff"
+                        d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+                </svg>
+            </button>
+            <div class="absolute top-[56px] left-0 bg-blue-300 p-3 hidden w-full" id="ddMenu">
+                <button class="block py-1 px-2" onclick="setView('Tailwind Example')">Home</button>
+                <button class="block py-1 px-2" onclick="setView('About Tailwind')">About</button>
+                <button class="block py-1 px-2" onclick="setView('Contact')">Contact</button>
+            </div>
+            <div class="justify-start gap-4 hidden sm:flex">
+                <button onclick="setView('Tailwind Example')">Home</button>
+                <button onclick="setView('About Tailwind')">About</button>
+                <button onclick="setView('Contact')">Contact</button>
+            </div>
+            <div>
+                <button class="dark:hidden block" onclick="toggle()">Dark</button>
+                <button class="hidden dark:block" onclick="toggle()">Light</button>
+            </div>
+        </div>
+        
+        <div class="p-4 bg-slate-300 flex-grow flex justify-center items-center">
+            <div id="calculator" class="w-full max-w-md">
+              <input id="display" readonly class="w-full mb-2 p-2 text-xl"/>
+              <div id="keys">
+                <div class="mb-4 flex justify-around space-x-10">
+                  <button id="second" onclick="toggleSecond()" class="btn rounded-full border-2 border-red-500 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">2<sup>nd</sup></button>
+                  <button id="pi" onclick="appendToDisplay(Math.PI.toFixed(15))" class="btn rounded-full border-2 border-red-500 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">π</button>
+                  <button id="e" onclick="appendToDisplay(Math.E.toFixed(15))" class="btn rounded-full border-2 border-gray-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">e</button>
+                  <button onclick="clearDisplay()" class="btn rounded-full border-2 border-green-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">C</button>
+                  <button onclick="deleteLast()" class="btn rounded-full border-2 border-green-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">⌫</button>
+                </div>
+                <div class="mb-4 flex justify-around space-x-10">
+                  <button id="square" onclick="square()" class="btn rounded-full border-2 border-red-500 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">x²</button>
+                  <button id="divide" onclick="divide()" class="btn rounded-full border-2 border-red-500 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">1/x</button>
+                  <button onclick="abs()" class="btn rounded-full border-2 border-gray-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">|x|</button>
+                  <button onclick="appendToDisplay('.e+')" class="btn rounded-full border-2 border-green-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">exp</button>
+                  <button onclick="appendToDisplay('mod')" class="btn rounded-full border-2 border-green-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">mod</button>
+                </div>
+                <div class="mb-4 flex justify-around space-x-10">
+                  <button id="squareRoot" onclick="squareRoot()" class="btn rounded-full border-2 border-red-500 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">²√x</button>
+                  <button onclick="appendToDisplay('(')" class="btn rounded-full border-2 border-red-500 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">(</button>
+                  <button onclick="appendToDisplay(')')" class="btn rounded-full border-2 border-gray-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">)</button>
+                  <button id="factorial" onclick="factorial()" class="btn rounded-full border-2 border-green-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">n!</button>
+                  <button onclick="appendToDisplay('/')" class="btn rounded-full border-2 border-green-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">÷</button>
+                </div>
+                <div class="mb-4 flex justify-around space-x-10">
+                  <button id="yRoot" onclick="appendToDisplay('^')" class="btn rounded-full border-2 border-red-500 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">x^y</button>
+                  <button onclick="appendToDisplay('7')" class="btn rounded-full border-2 border-red-500 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">7</button>
+                  <button  onclick="appendToDisplay('8')" class="btn rounded-full border-2 border-gray-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">8</button>
+                  <button  onclick="appendToDisplay('9')" class="btn rounded-full border-2 border-green-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">9</button>
+                  <button onclick="appendToDisplay('*')" class="btn rounded-full border-2 border-green-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">*</button>
+                </div>
+                <div class="mb-4 flex justify-around space-x-10">
+                  <button id="tenPower" onclick="tenPower()" class="btn rounded-full border-2 border-red-500 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">10<sup>x</sup></button>
+                  <button  onclick="appendToDisplay('4')" class="btn rounded-full border-2 border-red-500 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">4</button>
+                  <button  onclick="appendToDisplay('5')" class="btn rounded-full border-2 border-gray-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">5</button>
+                  <button  onclick="appendToDisplay('6')" class="btn rounded-full border-2 border-green-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">6</button>
+                  <button  onclick="appendToDisplay('-')" class="btn rounded-full border-2 border-green-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">-</button>
+                </div>
+                <div class="mb-4 flex justify-around space-x-10">
+                  <button id="log" onclick="log()" class="btn rounded-full border-2 border-red-500 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">log</button>
+                  <button  onclick="appendToDisplay('1')" class="btn rounded-full border-2 border-red-500 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">1</button>
+                  <button  onclick="appendToDisplay('2')" class="btn rounded-full border-2 border-gray-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">2</button>
+                  <button  onclick="appendToDisplay('3')" class="btn rounded-full border-2 border-green-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">3</button>
+                  <button  onclick="appendToDisplay('+')" class="btn rounded-full border-2 border-green-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">+</button>
+                </div>
+                <div class="mb-4 flex justify-around space-x-10">
+                  <button id="ln" onclick="ln()" class="btn rounded-full border-2 border-red-500 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">ln</button>
+                  <button  onclick="plusMinus()" class="btn rounded-full border-2 border-red-500 px-4 py-2 hover:bg-white dark:hover:bg-blue-600"><sup>+</sup>/-</button>
+                  <button  onclick="appendToDisplay('0')" class="btn rounded-full border-2 border-gray-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">0</button>
+                  <button  onclick="appendToDisplay('.')" class="btn rounded-full border-2 border-green-600 px-4 py-2 hover:bg-white dark:hover:bg-blue-600">.</button>
+                  <button  onclick="calculate()" class="btn rounded-full border-2 border-green-600 px-4 py-2 hover:bg-black dark:hover:bg-blue-600">=</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+    <script>
+    // custom config for the MTW app
+    const mtwAppConfig = {
+      border: true, // app border in the MTW page
+    };
+
+    ///////////////////////////////////////////////////////
+    // implement this functions in order to use private API
+    const sendPrivateApiRequest = async () => {
+      // your code here:
+      // sendRequestToParent({ cat: 'getAssets' })
+    };
+
+    const acceptPrivateApiResponse = async (data) => {
+      // process received data here:
+      // console.log(data)
+    };
+
+    // use this in order to send on document load
+    document.addEventListener("DOMContentLoaded", () => {
+      // your code here:
+      //sendRequestToParent({ method: 'getAssets' })
+    });
+  </script>
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
